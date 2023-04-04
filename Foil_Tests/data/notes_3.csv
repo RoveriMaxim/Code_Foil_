@@ -1,0 +1,9 @@
+column_a
+"For every Emergency Department encounter, hospitals report a Principal Diagnosis and up to 24 Other Diagnoses.  The Diagnosis Code Frequency Report shows the frequency, in each position, of the reporting of each code."
+"ICD9CMCode = the diagnosis code (International Classification of Diseases, 9th Revision, Clinical Modification), effective for encounters prior to October 1, 2015."
+"ICD10CMCode = the diagnosis code (International Classification of Diseases, 10th Revision, Clinical Modification), effective for encounters beginning October 1, 2015."
+TotalDiag = the total number of times the diagnosis code was reported in a Principal or Other Diagnosis position.
+d0 = the total number of times the diagnosis code was reported as a Principal Diagnosis (i.e. chief cause of encounter).
+d1-d24 = the total number of times the diagnosis code was reported in each Other Diagnosis position.
+"Data Source: California Emergency Department Database, Office of Statewide Health Planning and Development"
+"Run Date: May 10, 2016"
