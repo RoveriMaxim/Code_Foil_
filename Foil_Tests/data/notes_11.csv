@@ -1,8 +1,0 @@
-column_a
-"For every Emergency Department encounter, hospitals (licensed by the California Department of Public Health) may report a Principal Procedure and up to 20 Other Procedures.  The Procedure Code Frequency Report shows the frequency of the reporting of each code."
-"ProcedureCode = the procedure code, according to CPT-4 (Current Procedural Terminology, Fourth Edition)."
-TotalProc = the total number of times the procedure code was reported in a Principal or Other Procedure position.
-PrimaryProc = the total number of times the procedure code was reported as a Principal Procedure.
-SecondaryProc = the total number of times the procedure code was reported in one of the Other Procedure positions.
-"Data Source: California Emergency Department Data, Office of Statewide Health Planning and Development"
-"Revise Date: August 2, 2018"
