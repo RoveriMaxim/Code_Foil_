@@ -16,6 +16,7 @@ def csv_to_xlsx(csv_file, xlsx_file):
         
     return nuovo_file
 
+
 def append_once(list):
     x=0
     final_list = []
@@ -24,8 +25,6 @@ def append_once(list):
         if elem not in final_list:
             final_list.append(str(elem))
     return final_list
-     
-
 
 
 def list_int64_toString(list):

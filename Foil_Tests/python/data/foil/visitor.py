@@ -1,6 +1,10 @@
 import json
 import re
+from enum import Enum
+from typing import Dict
+from typing import Iterable
 from typing import List
+from typing import Optional
 from typing import Union
 from arpeggio import NonTerminal
 from arpeggio import PTNodeVisitor
@@ -9,14 +13,13 @@ from arpeggio import Terminal
 
 Node = Union[Terminal, NonTerminal]
 
-
 # noinspection PyMethodMayBeStatic
 class FoilVisitor(PTNodeVisitor):
     def visit_comment(self, node: Node, children: List) -> str:
         return node.value
 
     def visit_program(self, node: Node, children: List) -> 'Program':
-        from src.main.python.foil.models import Program
+        from models import Program
 
         return Program(children)
 
@@ -24,7 +27,7 @@ class FoilVisitor(PTNodeVisitor):
         return children[0]
 
     def visit_example(self, node: Node, children: List) -> 'Example':
-        from src.main.python.foil.models import Example
+        from models import Example
 
         return Example(children[0], children[1])
 
@@ -32,7 +35,7 @@ class FoilVisitor(PTNodeVisitor):
         return node.value == '+'
 
     def visit_ground_literal(self, node: Node, children: List) -> 'Literal':
-        from src.main.python.foil.models import Literal
+        from models import Literal
 
         try:
             return Literal(children[1], children[0])
@@ -40,7 +43,7 @@ class FoilVisitor(PTNodeVisitor):
             return Literal(children[0], False)
 
     def visit_ground_atom(self, node: Node, children: List) -> 'Atom':
-        from src.main.python.foil.models import Atom
+        from models import Atom
 
         try:
             return Atom(children[0], children[1])
@@ -54,7 +57,7 @@ class FoilVisitor(PTNodeVisitor):
         return children[0]
 
     def visit_clause(self, node: Node, children: List) -> 'Clause':
-        from src.main.python.foil.models import Clause
+        from models import Clause
 
         try:
             return Clause(children[0], children[1])
@@ -65,7 +68,7 @@ class FoilVisitor(PTNodeVisitor):
         return [child for child in children]
 
     def visit_literal(self, node: Node, children: List) -> 'Literal':
-        from src.main.python.foil.models import Literal
+        from models import Literal
 
         try:
             return Literal(children[1], children[0])
@@ -76,7 +79,7 @@ class FoilVisitor(PTNodeVisitor):
         return True if len(children) % 2 == 1 else False
 
     def visit_atom(self, node: Node, children: List) -> 'Atom':
-        from src.main.python.foil.models import Atom
+        from models import Atom
 
         try:
             return Atom(children[0], children[1])

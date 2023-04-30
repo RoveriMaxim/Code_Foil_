@@ -7,7 +7,7 @@ from openpyxl import Workbook as wb
 from arpeggio import visit_parse_tree
 
 from methods import append_once, list_int64_toString
-from foil.language.grammar import comment
+from grammar import comment
 
 
 pd.set_option('display.max_columns', None)

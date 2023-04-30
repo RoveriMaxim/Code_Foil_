@@ -2,7 +2,6 @@ import pandas as pd
 import openpyxl
 import csv
 from openpyxl import Workbook as wb
-from csv_to_xlsx import csv_to_xlsx
 from IPython import display
 
 # Read json file

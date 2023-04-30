@@ -30,7 +30,7 @@ ZeroOrMore
 will try to match parser expression specified zero or more times. It will never fail.
 
 
-to use Python’s raw string notation for regular expression patterns; backslashes are
+to use Python's raw string notation for regular expression patterns; backslashes are
 not handled in any special way in a string literal prefixed with 'r'.
 So r"\n" is a two-character string containing '\' and 'n', while "\n" is
 a one-character string containing a newline. """
