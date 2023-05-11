@@ -7,7 +7,8 @@ from openpyxl import Workbook as wb
 from arpeggio import visit_parse_tree
 
 from methods import append_once, list_int64_toString
-from grammar import comment
+from foil.grammar import comment
+from utili import methods
 
 
 pd.set_option('display.max_columns', None)
@@ -79,13 +80,6 @@ for k in range(len(esa)):
         esami.append(matricole[k] + " geometria")
 """ for p in range(len(esami)):
     print(esami[p]) """
-
-
-
-
-
-
-
 
 
 
@@ -275,7 +269,6 @@ for k in range(len(matr_once)):
             esami_x_studente.append(matr_once[k] + " " + AD_COD[i])
             break
 
-
 print("____________________________________________________________________", "\n",
         "ESAMI_X_STUDENTE::: ", "\n", esami_x_studente, "\n")
  """
@@ -292,10 +285,10 @@ print("____________________________________________________________________", "\
 
 """ print("\n", "________________________________________________________________________", " File Columns ", 
             "________________________________________________________________________")
-print(file.columns) """
+print(file.columns)
 
 
-""" print("\n", "________________________________________________________________________", " File iloc _0:5, 0:2_", 
+print("\n", "________________________________________________________________________", " File iloc _0:5, 0:2_", 
 "________________________________________________________________________", "\n")
 print(file.iloc[0:5, 0:2])
 print("")

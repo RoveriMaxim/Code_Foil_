@@ -75,15 +75,16 @@ def foil(
         negatives: List['Assignment'],
 ) -> List['Clause']:
     hypotheses = []
+    hypotheses2 = []
 
     print('_____________________________________________')
     print()
     print('background:')
-    print(len(background))  # 7
+    print(len(background))
     print('positivi totali:')
-    print(len(positives))  # 2
+    print(len(positives))
     print('negativi totali:')
-    print(len(negatives))  # 14
+    print(len(negatives))
     print()
 
     print('_____________________________________________')
@@ -105,6 +106,8 @@ def foil(
                                  masks, constants, positives, negatives)
         if hypothesis is None:
             break
+        else:
+            hypotheses2.append(hypothesis.clause)
 
         positives = exclude(positives, hypothesis.positives)
 
@@ -125,8 +128,6 @@ def foil(
             print('_____________________________________________')
             print()
             print('La soluzione è consistente e completa.')
-
-            
 
     return hypotheses
 
