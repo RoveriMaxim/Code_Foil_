@@ -1,15 +1,5 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
-import openpyxl
-import csv
-from IPython import display
-from arpeggio import ParserPython
-from openpyxl import Workbook as wb
-from arpeggio import visit_parse_tree
-
 from models import Clause, Example, Label
-from methods import crea_dizionario
 
 
 # imposto il numero massimo di righe e colonne visualizzate su None, che significa "nessun limite"

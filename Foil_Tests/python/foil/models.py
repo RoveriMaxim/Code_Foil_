@@ -1,15 +1,8 @@
-import json
-import re
 from enum import Enum
 from typing import Dict
 from typing import Iterable
 from typing import List
 from typing import Optional
-from typing import Union
-from arpeggio import NonTerminal
-from arpeggio import PTNodeVisitor
-from arpeggio import Terminal
-
 from arpeggio import ParserPython
 from arpeggio import visit_parse_tree
 

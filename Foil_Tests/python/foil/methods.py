@@ -1,5 +1,4 @@
 import csv
-import pandas as pd
 from openpyxl import Workbook
 from pycountry_convert import country_alpha2_to_country_name, country_name_to_country_alpha3
 
@@ -12,9 +11,6 @@ def csv_to_xlsx(csv_file_input, xlsx_name_output):
         for row in csv.reader(f):
             wba.append(row)
             nuovo_file = wb.save(xlsx_name_output)
-        print("\n", "________________________________________________________________________",
-              "finito", "________________________________________________________________________", "\n")
-        
     return nuovo_file
 
 
