@@ -9,7 +9,7 @@
 Il progetto è attualmente in fase di sviluppo attivo e riceve regolarmente aggiornamenti e miglioramenti.
 
 # Descrizione
-Questo progetto mira alla generazione di regole ed ipotesi a partire da un set di dati, più o meno grande. L'algoritmo utilizzato per questo scopo è il FOIL, che, essendo un algoritmo di Inductive Logic Programming (ILP) consente di indurre regole logiche a partire da esempi specifici.
+Questo progetto è volto alla generazione di regole ed ipotesi a partire da un set di dati, più o meno grande. L'algoritmo utilizzato per questo scopo è il FOIL, che, essendo un algoritmo di Inductive Logic Programming (ILP) consente di indurre regole logiche a partire da esempi specifici.
 
 # Installazione di librerie
 Il programma necessita l'installazione di alcune librerie, quelle necessarie sono: -csv e -json (se le estensioni dei file sono .csv o .json, diverse da .xlsx), -arpeggio, -math, -collections, -itertools, -typing, -openpyxl, -enum, -pyparsing, -re.
