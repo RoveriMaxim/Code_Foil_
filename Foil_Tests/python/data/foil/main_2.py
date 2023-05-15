@@ -159,6 +159,9 @@ lista_esami = gruppi['AD_COD'].unique()
 conteggio_esami = dataframe['MATRICOLA'].value_counts()
 # FINE PROVA
 
+desc = dataframe.loc[:, 'DES'].drop_duplicates()
+print(desc)
+
 
 """ range_voti_esami  lista degli esami sostenuti con il relativo range di voti
 media_p           lista delle medie pesate per singolo studente
