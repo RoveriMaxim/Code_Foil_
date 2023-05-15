@@ -4,6 +4,10 @@
 
 ![Stato del progetto](https://img.shields.io/badge/Stato-Sviluppo%20Attivo-brightgreen)
 
+## Stato del Progetto
+
+Il progetto è attualmente in fase di sviluppo attivo e riceve regolarmente aggiornamenti e miglioramenti.
+
 # Descrizione
 Questo progetto mira alla generazione di regole ed ipotesi a partire da un set di dati, più o meno grande. L'algoritmo utilizzato per questo scopo è il FOIL, che, essendo un algoritmo di Inductive Logic Programming (ILP) consente di indurre regole logiche a partire da esempi specifici.
 
