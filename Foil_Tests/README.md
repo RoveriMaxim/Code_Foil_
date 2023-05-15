@@ -18,4 +18,5 @@ in questi, i dati del file di lavoro vengono elaborati.
 
 # Al momento i file non sono suddivisi in packages.
 
-
+## Licenza
+Questo progetto è sotto la licenza di Roveri Maxim. Consulta il file LICENZA per ulteriori informazi.
