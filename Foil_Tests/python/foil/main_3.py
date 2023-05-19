@@ -7,6 +7,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import warnings
 import os
+from inflect import engine as inf
 
 import methods as m
 
@@ -69,6 +70,16 @@ print(table2)
 
 indice = table2.iloc[:, 0]
 print(indice)
+
+
+for i in range(5):
+    posizione = str(inf.number_to_words(inf.ordinal(i + 1)))
+    traduct = tran.translate(posizione, dest='it').text
+    id_colonna = input(f"Inserisci l'ID per valutare la {traduct} colonna: ")
+    ids.append(id_colonna)
+    """ posizione = num_ord_fem(i + 1)
+    id_colonna = input(f"Inserisci l'ID per valutare la {posizione} colonna: ")
+    ids.append(id_colonna) """
 
 
 

@@ -114,8 +114,10 @@ ic_fc = []
 for index, matr in matr_no_dupl.iterrows():
     if "IC" in str(matr[19]):
         ic_fc.append("in_corso" + "(s" + matr[0] + ").")
-    else:
+    elif "FC" in str(matr[19]):
         ic_fc.append("fuori_corso" + "(s" + matr[0] + ").")
+    else:
+        continue
 
 # OK
 indice = data_media.iloc[:, 31]
@@ -204,3 +206,87 @@ def gli_es():
     return totale
 
 gli_es()
+
+
+
+""" dataframe = pd.read_excel('F004.xlsx')
+dataframe['MATRICOLA'] = dataframe['MATRICOLA'].astype(str)
+data = dataframe[~dataframe["MEDIA P"].isna()]
+
+# Creo due liste matricole, una con le matricole e una con le matricole e il predicato s
+# Converto le matricole in stringhe (object)
+# Creo poi una lista con le matricole senza duplicati
+indice = data.iloc[:, 0]
+matricole = indice.astype(str).tolist()
+matricole = ["(s" + matricola + ")." for matricola in matricole]
+matr_no_dupl = dataframe.drop_duplicates(subset=['MATRICOLA'])
+
+# Lista studente lavoratore o non lavoratore
+lav_no_lav = []
+occupation_mapping = {
+    "Non occupato-Iscrito full time": "non_occup_",
+    "Non occupato-Iscritto part time": "non_occup_",
+    "Occupato-Iscritto full Time": "occup_",
+    "Occupato-Iscritto part time": "occup_",
+    "lavoratore-studente: tempo studio < 50%": "stud_lav_",
+    "studente-lavoratore: tempo studio 50%75%": "stud_lav_",
+    "non lavoratore: tempo studio > 75%": "non_lav_gr75_",
+    "Non fornito-Iscritto full time": "nan_fulltime_"
+}
+
+# Lista degli esami suddivisi per range di voto
+range_voti_esami = []
+course_mapping = {
+    "PROGRAMMAZIONE": "p",
+    "ALGORITMI E STRUTTURE DATI": "a",
+    "BASI DI DATI": "b",
+    "RETI DI TELECOMUNICAZIONE": "r",
+    "INGLESE": "i",
+    "LOGICA": "l",
+    "FONDAMENTI DI SICUREZZA": "f",
+    "LABORATORIO INTERDISCIPLINARE B": "lib"
+}
+
+for _, distinct_row in matr_no_dupl.iterrows():
+    for occupation, prefix in occupation_mapping.items():
+        if occupation in str(distinct_row[7]):
+            lav_no_lav.append(prefix + "(s" + str(distinct_row[0]) + ").")
+            break
+
+# Lista studenti fuori corso o non fuori corso
+ic_fc = []
+for _, matr in matr_no_dupl.iterrows():
+    ic_fc.append(("in_corso" if "IC" in str(matr[19]) else "fuori_corso") + "(s" + str(matr[0]) + ").")
+
+# Lista delle medie ponderate suddivise per range
+range_medie_matr = []
+for _, medie in matr_no_dupl.iterrows():
+    matricola = str(medie[0])
+    if str(medie[34]) != "nan":
+        media = int(medie[34])
+        if 18 <= media <= 20:
+            range_medie_matr.append(f"m_18_20_(s{matricola}).")
+        elif 21 <= media <= 24:
+            range_medie_matr.append(f"m_21_24_(s{matricola}).")
+        elif 25 <= media <= 27:
+            range_medie_matr.append(f"m_25_27_(s{matricola}).")
+        elif 28 <= media <= 30:
+            range_medie_matr.append(f"m_28_30_(s{matricola}).")
+    else:
+        range_medie_matr.append(f"esami_sostenuti_insufficienti(s{matricola}).")
+
+for _, row in data.iterrows():
+    matricola = str(row[0])
+    for course, prefix in course_mapping.items():
+        if 18 <= row[30] <= 25 and row[25] == course:
+            range_voti_esami.append(f"{prefix}_18_25_(s{matricola}).")
+        elif 26 <= row[30] <= 30 and row[25] == course:
+            range_voti_esami.append(f"{prefix}_26_30_(s{matricola}).")
+            
+
+#lav_no_lav              lista degli studenti lavoratori e non
+#ic_fc                   lista degli studenti in corso e fuori corso (?)
+#range_voti_esami        lista degli esami sostenuti con il relativo range di voti
+#range_medie_matr        lista delle medie ponderate suddivise per range 
+
+insieme = range_voti_esami + lav_no_lav + ic_fc + range_medie_matr """

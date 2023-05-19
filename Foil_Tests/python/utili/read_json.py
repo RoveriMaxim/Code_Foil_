@@ -7,6 +7,7 @@ from IPython import display
 # Read json file
 """ jsfile = open('C:/Users/user/.vscode/Code_Foil_/Foil_Tests/datapackage.json', 'r')
 
+
 # Parse
 obj = json.loads(jsfile.read())
 
@@ -28,3 +29,6 @@ for i in range(len(list)):
         print("Dato__ ", k,": ",key, "il valore del dato e': ", list[i].get(key))
 
 print("\n\n") """
+
+def nuovo_metodo():
+    print("Ciao")

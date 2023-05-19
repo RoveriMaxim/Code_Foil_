@@ -2,8 +2,8 @@ from main import *
 from learning import get_constants, get_closure, get_masks, foil
 from models import Literal, Program
 
-
-bkg_data = il_back()
+insieme =prepare_data()
+bkg_data = il_back(insieme)
 es = gli_es()
 
 # verifico se il file Python è stato eseguito direttamente dall'interprete Python oppure

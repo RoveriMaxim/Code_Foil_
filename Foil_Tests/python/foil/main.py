@@ -1,150 +1,184 @@
 import pandas as pd
 from models import Clause, Example, Label
+from methods import num_ord_fem, prep_ic_fc, prep_lav, prep_medie, prep_voti, colonna_scelta
 
 
 # imposto il numero massimo di righe e colonne visualizzate su None, che significa "nessun limite"
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
-
 # leggo il file excel
 # converto la colonna MATRICOLA in stringa
 # datamedia contiene tutte le righe (eccetto quelle null) di tutte le colonne
-dataframe = pd.read_excel('C:\\Users\\user\\.vscode\\Code_Foil_\\F004-Carriere(150322).xlsx')
+dataframe = pd.read_excel('F004.xlsx')
 dataframe['MATRICOLA'] = dataframe['MATRICOLA'].astype(str)
-data_media = dataframe[~dataframe["MEDIA P"].isna()]
+data = dataframe[~dataframe["MEDIA P"].isna()]
 
+ #frequentato, programmato, superato 
+colonne_disponibili = data.columns.tolist()
+# Verifica se i nomi delle colonne inseriti sono validi
+""" colonne_non_trovate = [col for col in check_col if col not in check_col]
+if colonne_non_trovate:
+    print("I seguenti nomi di colonne non sono presenti nel dataset:")
+    for col in colonne_non_trovate:
+        print(col)
+else:
+for colonna in ids:
+        if colonna == "1":
+            colonne_selezionate.append("MATRICOLA")
+        elif colonna == "2":
+            colonne_selezionate.append("Descrizione <studente lavoratore o non>")
+        elif colonna == "3":
+            colonne_selezionate.append("Status iscrizione <in corso o non>")
+        elif colonna == "4":
+            colonne_selezionate.append("Valutazione esami")
+        elif colonna == "5":
+            colonne_selezionate.append("Media ponderata")
+        elif colonna == "6":
+            colonne_selezionate.append("Status esame <Frequentato, Superato, Programmato>")
+        elif colonna == "7":
+            colonne_selezionate.append("Data di nascita")
+        else:
+            print("ID non valido")
+            break """
+""" check_col = ["1", "2", "3", "4", "5", "6", "7"] 
+id_colonne = []
+ids = []
+colonne_selezionate = []
 
-# Creo due liste matricole, una con le matricole e una con le matricole e il predicato s
-# Converto le matricole in stringhe (object)
-# Creo poi una lista con le matricole senza duplicati
-indice = data_media.iloc[:, 0]
-matricole = []
-matricole_2 = []
-for k in range(len(indice)):
-    matricole.append(indice.iloc[k])
-    matricole_2.append(indice.iloc[k])
-for i in range(len(matricole)):
-    matricole[i] = str(matricole[i])
-    matricole_2[i] = str(matricole_2[i])
+print("Inserisci l'ID delle colonne che vuoi selezionare tra quelle presenti nel seguente elenco: " + "\n")
+print("ID: 1    MATRICOLA" + "\n" + "ID: 2    Descrizione <studente lavoratore o non>" + "\n" + "ID: 3    Status iscrizione <in corso o non>" + "\n" + "ID: 4    Valutazione esami" + "\n" + "ID: 5    Media ponderata" + "\n" + "ID: 6    Status esame <Frequentato, Superato, Programmato>" + "\n" + "ID: 7    Data di nascita")
+print("")
+for i in range(4):
+    id_colonne = input(f"Inserisci l'ID della colonna {i+1}: ")
+    ids.append(id_colonne)
 
-matricole = list(map(str, matricole))
-for k in range(len(matricole)):
-    matricole[k] = "(s" + matricole[k] + ")."
+# Verifica se i nomi delle colonne inseriti sono validi
+colonne_non_trovate = [col for col in check_col if col not in check_col]
+if colonne_non_trovate:
+    print("I seguenti nomi di colonne non sono presenti nel dataset:")
+    for col in colonne_non_trovate:
+        print(col)
+else:
+    mapping_colonne = {
+        "1": "MATRICOLA",
+        "2": "Descrizione <studente lavoratore o non>",
+        "3": "Status iscrizione <in corso o non>",
+        "4": "Valutazione esami",
+        "5": "Media ponderata",
+        "6": "Status esame <Frequentato, Superato, Programmato>",
+        "7": "Data di nascita",
+    }
+    for colonna in ids:
+        if colonna in mapping_colonne:
+            colonne_selezionate.append(mapping_colonne[colonna])
+        else:
+            print("ID non valido")
+            break
 
-matr_no_dupl = dataframe.drop_duplicates(subset=['MATRICOLA'])
+print("")
+print("colonne selezionate: " + "\n")
+for colonna in colonne_selezionate:
+    print(colonna)
+print("") """
 
+def prepare_data():
+    ids = []
+    colonne_selezionate = []
 
-# Lista studente lavoratore o non lavoratore
-lav_no_lav = []
-for index, distinct_row in matr_no_dupl.iterrows():
-    if "Non occupato-Iscrito full time" or "Non occupato-Iscritto part time" in str(distinct_row[7]):
-        lav_no_lav.append("non_occup_(s" + distinct_row[0]+").")
+    check_col = ["1", "2", "3", "4"]
+    mapping_colonne = {
+        "1": "Descrizione <studente lavoratore o non>",
+        "2": "Status iscrizione <in corso o non>",
+        "3": "Valutazione esami",
+        "4": "Media ponderata",
+        "5": "Status esame <Frequentato, Superato, Programmato>",
+        "6": "Data di nascita",
+    }
 
-    elif "Occupato-Iscritto full Time" in str(distinct_row[7]) or "Occupato-Iscritto part time" in str(distinct_row[7]):
-        lav_no_lav.append("occup_(s" + distinct_row[0]+").")
+    print(
+        "\nPer iniziare la valutazione dei letterali inserisci l'ID delle colonne che vuoi selezionare tra quelle presenti nel seguente elenco:\n"
+        "\n"
+        "ID: 1    Descrizione <studente lavoratore o non>\n"
+        "ID: 2    Status iscrizione <in corso o non>\n"
+        "ID: 3    Valutazione esami\n"
+        "ID: 4    Media ponderata\n"
+        "ID: 5    Status esame <Frequentato, Superato, Programmato>\n"
+        "ID: 6    Data di nascita\n"
+    )
 
-    elif "lavoratore-studente: tempo studio < 50%" in str(distinct_row[7]) or "studente-lavoratore: tempo studio 50%75%" in str(distinct_row[7]):
-        lav_no_lav.append("stud_lav_(s" + distinct_row[0]+").")
+    for i in range(4):
+        posizione = num_ord_fem(i + 1)
+        id_colonna = input(f"Inserisci l'ID per valutare la {posizione} colonna: ")
+        ids.append(id_colonna)
 
-    elif "non lavoratore: tempo studio > 75%" == str(distinct_row[7]):
-        lav_no_lav.append("non_lav_gr75_(s" + distinct_row[0]+").")
+    colonne_selezionate = [mapping_colonne.get(col) for col in ids if col in mapping_colonne]
+
+    colonne_non_trovate = [col for col in ids if col not in check_col]
+    insieme = []
+    matr_no_dupl = dataframe.drop_duplicates(subset=['MATRICOLA'])
+
+    if all(id_col == "" for id_col in ids):
+        print("\nNon hai inserito nessun ID. Procedo con i dati di default...\n")
+
+        # Lista studente lavoratore o non lavoratore
+        lav_no_lav = prep_lav(matr_no_dupl)
+
+        # Lista studenti fuori corso o non fuori corso
+        ic_fc = prep_ic_fc(matr_no_dupl)
+
+        # Lista delle medie ponderate suddivise per range
+        range_medie_matr = prep_medie(matr_no_dupl)
+
+        # Lista degli esami suddivisi per range di voto
+        range_voti_esami = prep_voti(data)
+
+        insieme = range_voti_esami + lav_no_lav + ic_fc + range_medie_matr
         
-    elif "Non fornito-Iscritto full time" == str(distinct_row[7]):
-        lav_no_lav.append("nan_fulltime_(s" + distinct_row[0]+").")
+        # PROVA
+        gruppi = dataframe.groupby('MATRICOLA')
+        # crea una lista degli esami per ogni matricola
+        lista_esami = gruppi['AD_COD'].unique()
+        # conta il numero di esami superati per ogni matricola
+        conteggio_esami = dataframe['MATRICOLA'].value_counts()
+        # FINE PROVA
 
+        """
+        lav_no_lav              lista degli studenti lavoratori e non
+        ic_fc                   lista degli studenti in corso e fuori corso (?)
+        range_voti_esami        lista degli esami sostenuti con il relativo range di voti
+        range_medie_matr        lista delle medie ponderate suddivise per range 
+        """
+    elif not colonne_non_trovate:
+        print("________________________________________________")
+        print("\nColonne selezionate:\n")
+        for colonna in colonne_selezionate:
+           insieme = colonna_scelta(colonna, matr_no_dupl, data, insieme)
 
-# Lista studenti fuori corso o non fuori corso
-ic_fc = []
-for index, matr in matr_no_dupl.iterrows():
-    if "IC" in str(matr[19]):
-        ic_fc.append("in_corso" + "(s" + matr[0] + ").")
+        print("\nProcedo con la valutazione...\n")
     else:
-        ic_fc.append("fuori_corso" + "(s" + matr[0] + ").")
+        for i in range(len(ids)):
+            if ids[i] == "":
+                ids[i] = "x"
+        print("________________________________________________")
+        print("\nI seguenti ID di colonne non sono validi:")
+        for col in ids:
+            if col == "x" or col not in check_col:
+                print(col)
+        print("________________________________________________")
+        print("\nColonne selezionate:\n")
+        for colonna in colonne_selezionate:
+            insieme = colonna_scelta(colonna, matr_no_dupl, data, insieme)
 
+        print("\nProcedo con la valutazione...\n")
+    return insieme
 
+    # ____________________________________________________________________________________________________________________________
+    # Creo due liste matricole, una con le matricole e una con le matricole e il predicato s
+    # Converto le matricole in stringhe (object)
+    # Creo poi una lista con le matricole senza duplicati
 
-# Lista delle medie ponderate suddivise per range
-range_medie_matr = []
-for index, medie in matr_no_dupl.iterrows():
-    if(str(medie[34]) != "nan"):
-        if(18 <= medie[34] <= 20):
-            range_medie_matr.append("m_18_20_" + "(s" + medie[0] + ").")
-        elif(21 <= medie[34] <= 24 ):
-            range_medie_matr.append("m_21_24_" + "(s" + medie[0] + ").")
-        elif(25 <= medie[34] <= 27):
-            range_medie_matr.append("m_25_27_" + "(s" + medie[0] + ").")
-        elif(28 <= medie[34] <= 30):
-            range_medie_matr.append("m_28_30_" + "(s" + medie[0] + ").")
-    else:
-        range_medie_matr.append("esami_sostenuti_insufficienti" + "(s" + medie[0] + ").")
-
-
-# OK
-# Lista degli esami suddivisi per range di voto
-range_voti_esami = []
-for index, row in data_media.iterrows():
-    mat = "(s"+row[0]+")."
-    if (18 <= row[30] <= 25  and  row[25] == "PROGRAMMAZIONE"):
-        range_voti_esami.append("p_18_25" + mat)
-    elif (26 <= row[30] <= 30  and  row[25] == "PROGRAMMAZIONE"):
-        range_voti_esami.append("p_26_30" + mat)
-
-    elif (18 <= row[30] <= 25  and  row[25] == "ALGORITMI E STRUTTURE DATI"):
-        range_voti_esami.append("a_18_25" + mat)
-    elif (26 <= row[30] <= 30  and  row[25] == "ALGORITMI E STRUTTURE DATI"):
-        range_voti_esami.append("a_26_30" + mat)
-
-    elif (18 <= row[30] <= 25  and  row[25] == "BASI DI DATI"):
-        range_voti_esami.append("b_18_25" + mat)
-    elif (26 <= row[30] <= 30  and  row[25] == "BASI DI DATI"):
-        range_voti_esami.append("b_26_30" + mat)
-
-    elif (18 <= row[30] <= 25  and  row[25] == "RETI DI TELECOMUNICAZIONE"):
-        range_voti_esami.append("r_18_25" + mat)
-    elif (26 <= row[30] <= 30  and  row[25] == "RETI DI TELECOMUNICAZIONE"):
-        range_voti_esami.append("r_26_30" + mat)
-
-    elif (18 <= row[30] <= 25  and  row[25] == "INGLESE"):
-        range_voti_esami.append("i_18_25" + mat)
-    elif (26 <= row[30] <= 30  and  row[25] == "INGLESE"):
-        range_voti_esami.append("i_26_30" + mat)
-
-    elif (18 <= row[30] <= 25  and  row[25] == "LOGICA"):
-        range_voti_esami.append("l_18_25" + mat)
-    elif (26 <= row[30] <= 30  and  row[25] == "LOGICA"):
-        range_voti_esami.append("l_26_30" + mat)
-
-    elif (18 <= row[30] <= 25  and  row[25] == "FONDAMENTI DI SICUREZZA"):
-        range_voti_esami.append("f_18_25" + mat)
-    elif (26 <= row[30] <= 30  and  row[25] == "FONDAMENTI DI SICUREZZA"):
-        range_voti_esami.append("f_26_30" + mat)
-
-    elif (18 <= row[30] <= 25  and  row[25] == "LABORATORIO INTERDISCIPLINARE B"):
-        range_voti_esami.append("lib_18_25" + mat)
-    elif (26 <= row[30] <= 30  and  row[25] == "LABORATORIO INTERDISCIPLINARE B"):
-        range_voti_esami.append("lib_26_30" + mat)
-
-  
-# PROVA
-gruppi = dataframe.groupby('MATRICOLA')
-# crea una lista degli esami per ogni matricola
-lista_esami = gruppi['AD_COD'].unique()
-# conta il numero di esami superati per ogni matricola
-conteggio_esami = dataframe['MATRICOLA'].value_counts()
-# FINE PROVA
-
-"""
-lav_no_lav              lista degli studenti lavoratori e non
-ic_fc                   lista degli studenti in corso e fuori corso (?)
-range_voti_esami        lista degli esami sostenuti con il relativo range di voti
-range_medie_matr        lista delle medie ponderate suddivise per range 
-"""
-
-insieme = lav_no_lav + ic_fc + range_medie_matr + range_voti_esami
-
-
-def il_back():
+def il_back(insieme):
     background = []
     dati = insieme
     for k in range(len(dati)):

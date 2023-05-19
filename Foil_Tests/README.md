@@ -5,7 +5,6 @@
 ![Stato del progetto](https://img.shields.io/badge/Stato-Sviluppo%20Attivo-brightgreen)
 
 ## Stato del Progetto
-
 Il progetto è attualmente in fase di sviluppo attivo e riceve regolarmente aggiornamenti e miglioramenti.
 
 # Descrizione
