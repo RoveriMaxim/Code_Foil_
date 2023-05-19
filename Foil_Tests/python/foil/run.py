@@ -12,7 +12,7 @@ es = gli_es()
 if __name__ == '__main__':
     bkg = bkg_data
 
-    print('BKG:')
+    print('Dati di BKG (background knowledge):')
     print()
     print(bkg)
     print()
@@ -22,7 +22,10 @@ target_name = 'l_110'
 target = Literal.parse(target_name + '(X)')
 examples = es
 
-print('Esempi:')
+print("________________________________________________________________________")
+print('\nEsempi: \n(gli esempi positivi e negativi con target name= l_110 e target= (X) equivalente alla matricola):')
+print("Gli esempi positivi sono preceduti dal simbolo: (\"+\" e \":\" )")
+print("Gli esempi negativi sono preceduti dal simbolo: (\"-\" e \":\" )")
 print()
 
 

@@ -158,23 +158,60 @@ def prep_voti(data):
     return range_voti_esami
     
 def colonna_scelta(colonna, matr_no_dupl, data, insieme):
-    print("colonna ", colonna)
+    print("\ncolonna: ", colonna)
     if colonna == "Descrizione <studente lavoratore o non>":
+        stampa_occupazione()
         insieme = insieme + prep_lav(matr_no_dupl)
+
     elif colonna == "Status iscrizione <in corso o non>":
+        stampa_in_corso()
         insieme = insieme + prep_ic_fc(matr_no_dupl)
+
     elif colonna == "Valutazione esami":
+        stampa_voti()
         insieme = insieme + prep_voti(data)
+
     elif colonna == "Media ponderata":
+        stampa_media()
         insieme = insieme + prep_medie(matr_no_dupl)
-    elif colonna == "Status esame <Frequentato, Superato, Programmato>":
-        #TODO fare metodo apposito
-        insieme = insieme + prep_lav(matr_no_dupl)
-    elif colonna == "Data di nascita":
-        #TODO fare metodo apposito
-        insieme = insieme + prep_lav(matr_no_dupl)
+
     return insieme
 
+def stampa_occupazione():
+    print("\tnon_occup_(s[MAT]). = studente non occupato e relativa matricola MAT")
+    print("\toccup_(s[MAT]). = studente occupato e relativa matricola MAT")
+    print("\tstud_lav_(s[MAT]). = studente lavoratore con tempo di studio < 50% e relativa matricola MAT")
+    print("\tnon_lav_gr75_(s[MAT]). = studente non lavoratore con tempo di studio > 75% e relativa matricola MAT")
+    print("\tnan_fulltime_(s[MAT]). = studente con stato di occupazione non fornito e relativa matricola MAT")
+
+def stampa_in_corso():
+    print("\tin_corso(s[MAT]). = studente in corso con relativa matricola MAT")
+    print("\tfuori_corso(s[MAT]). = studente fuori corso con relativa matricola MAT")
+
+def stampa_voti():
+    print("\tp_18_25(s[MAT]). = votazione di programmazione tra 18 e 25 e relativa matricola MAT")
+    print("\tp_26_30(s[MAT]). = votazione di programmazione tra 26 e 30 e relativa matricola MAT")
+    print("\ta_18_25(s[MAT]). = votazione di algoritmi e strutture dati tra 18 e 25 e relativa matricola MAT")
+    print("\ta_26_30(s[MAT]). = votazione di algoritmi e strutture dati tra 26 e 30 e relativa matricola MAT")
+    print("\tb_18_25(s[MAT]). = votazione di basi di dati tra 18 e 25 e relativa matricola MAT")
+    print("\tb_26_30(s[MAT]). = votazione di basi di dati tra 26 e 30 e relativa matricola MAT")
+    print("\tr_18_25(s[MAT]). = votazione di reti ti telecomunicazioni tra 18 e 25 e relativa matricola MAT")
+    print("\tr_26_30(s[MAT]). = votazione di reti ti telecomunicazioni tra 26 e 30 e relativa matricola MAT")
+    print("\ti_18_25(s[MAT]). = votazione di inglese tra 18 e 25 e relativa matricola MAT")
+    print("\ti_26_30(s[MAT]). = votazione di inglese tra 26 e 30 e relativa matricola MAT")
+    print("\tl_18_25(s[MAT]). = votazione di logica tra 18 e 25 e relativa matricola MAT")
+    print("\tl_26_30(s[MAT]). = votazione di logica tra 26 e 30 e relativa matricola MAT")
+    print("\tf_18_25(s[MAT]). = votazione di fondamenti di sicurezza tra 18 e 25 e relativa matricola MAT")
+    print("\tf_26_30(s[MAT]). = votazione di fondamenti di sicurezza tra 26 e 30 e relativa matricola MAT")
+    print("\tlib_18_25(s[MAT]). = votazione di laboratorio interdisciplinare B tra 18 e 25 e relativa matricola MAT")
+    print("\tlib_26_30(s[MAT]). = votazione di laboratorio interdisciplinare B tra 26 e 30 e relativa matricola MAT")
+
+def stampa_media():
+    print("\tm_18_20_(s[MAT]). = studente con media ponderata tra 18 e 20 e relativa matricola MAT")
+    print("\tm_21_24_(s[MAT]). = studente con media ponderata tra 21 e 24 e relativa matricola MAT")
+    print("\tm_25_27_(s[MAT]). = studente con media ponderata tra 25 e 27 e relativa matricola MAT")
+    print("\tm_28_30_(s[MAT]). = studente con media ponderata tra 28 e 30 e relativa matricola MAT")
+    print("\tesami_sostenuti_insufficienti(s[MAT]). = studente con nessun esame sostenuto e relativa matricola MAT")
 """ # Returns a scalar
 # titanic.ix[4, 'age']
 titanic.at[4, 'age']

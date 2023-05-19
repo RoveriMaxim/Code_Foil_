@@ -1,6 +1,6 @@
 import pandas as pd
 from models import Clause, Example, Label
-from methods import num_ord_fem, prep_ic_fc, prep_lav, prep_medie, prep_voti, colonna_scelta
+from methods import num_ord_fem, prep_ic_fc, prep_lav, prep_medie, prep_voti, colonna_scelta, stampa_in_corso, stampa_occupazione, stampa_media, stampa_voti
 
 
 # imposto il numero massimo di righe e colonne visualizzate su None, che significa "nessun limite"
@@ -92,8 +92,6 @@ def prepare_data():
         "2": "Status iscrizione <in corso o non>",
         "3": "Valutazione esami",
         "4": "Media ponderata",
-        "5": "Status esame <Frequentato, Superato, Programmato>",
-        "6": "Data di nascita",
     }
 
     print(
@@ -103,8 +101,6 @@ def prepare_data():
         "ID: 2    Status iscrizione <in corso o non>\n"
         "ID: 3    Valutazione esami\n"
         "ID: 4    Media ponderata\n"
-        "ID: 5    Status esame <Frequentato, Superato, Programmato>\n"
-        "ID: 6    Data di nascita\n"
     )
 
     for i in range(4):
@@ -119,39 +115,39 @@ def prepare_data():
     matr_no_dupl = dataframe.drop_duplicates(subset=['MATRICOLA'])
 
     if all(id_col == "" for id_col in ids):
-        print("\nNon hai inserito nessun ID. Procedo con i dati di default...\n")
-
+        print("________________________________________________________________________")
+        print("\nNon hai inserito nessun ID. Procedo con i dati default...")
+        print("\nDati di default:")
         # Lista studente lavoratore o non lavoratore
         lav_no_lav = prep_lav(matr_no_dupl)
-
         # Lista studenti fuori corso o non fuori corso
         ic_fc = prep_ic_fc(matr_no_dupl)
-
         # Lista delle medie ponderate suddivise per range
         range_medie_matr = prep_medie(matr_no_dupl)
-
         # Lista degli esami suddivisi per range di voto
         range_voti_esami = prep_voti(data)
 
-        insieme = range_voti_esami + lav_no_lav + ic_fc + range_medie_matr
-        
-        # PROVA
-        gruppi = dataframe.groupby('MATRICOLA')
-        # crea una lista degli esami per ogni matricola
-        lista_esami = gruppi['AD_COD'].unique()
-        # conta il numero di esami superati per ogni matricola
-        conteggio_esami = dataframe['MATRICOLA'].value_counts()
-        # FINE PROVA
-
+        print("\nColonna Stato Occupazionale:")
+        stampa_occupazione()
+        print("\nColonna Stato Iscrizione:")
+        stampa_in_corso()
+        print("\nColonna Media Ponderata:")
+        stampa_media()
+        print("\nColonna Range Voti Esami:")
+        stampa_voti()
+        print("________________________________________________________________________")
+        print("\n\n")
         """
         lav_no_lav              lista degli studenti lavoratori e non
         ic_fc                   lista degli studenti in corso e fuori corso (?)
         range_voti_esami        lista degli esami sostenuti con il relativo range di voti
         range_medie_matr        lista delle medie ponderate suddivise per range 
         """
+        insieme = range_voti_esami + lav_no_lav + ic_fc + range_medie_matr
+
     elif not colonne_non_trovate:
         print("________________________________________________")
-        print("\nColonne selezionate:\n")
+        print("I dati delle colonne selezionate hanno la seguente struttura:\n")
         for colonna in colonne_selezionate:
            insieme = colonna_scelta(colonna, matr_no_dupl, data, insieme)
 
@@ -166,10 +162,9 @@ def prepare_data():
             if col == "x" or col not in check_col:
                 print(col)
         print("________________________________________________")
-        print("\nColonne selezionate:\n")
+        print("I dati delle colonne selezionate hanno la seguente struttura:\n")
         for colonna in colonne_selezionate:
             insieme = colonna_scelta(colonna, matr_no_dupl, data, insieme)
-
         print("\nProcedo con la valutazione...\n")
     return insieme
 
@@ -184,7 +179,6 @@ def il_back(insieme):
     for k in range(len(dati)):
         background.append(Clause.parse(str(dati[k])))
     return background
-
 
 def gli_es():
     positivi = []
@@ -215,3 +209,13 @@ def gli_es():
     totale = positivi + negativi
 
     return totale
+
+
+        
+""" # PROVA
+gruppi = dataframe.groupby('MATRICOLA')
+# crea una lista degli esami per ogni matricola
+lista_esami = gruppi['AD_COD'].unique()
+# conta il numero di esami superati per ogni matricola
+conteggio_esami = dataframe['MATRICOLA'].value_counts()
+# FINE PROVA """
