@@ -10,7 +10,7 @@ pd.set_option('display.max_rows', None)
 # leggo il file excel
 # converto la colonna MATRICOLA in stringa
 # datamedia contiene tutte le righe (eccetto quelle null) di tutte le colonne
-dataframe = pd.read_excel('F004.xlsx')
+dataframe = pd.read_excel('DS_Uninsubria.xlsx')
 dataframe['MATRICOLA'] = dataframe['MATRICOLA'].astype(str)
 data = dataframe[~dataframe["MEDIA P"].isna()]
 

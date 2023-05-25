@@ -4,36 +4,7 @@ from arpeggio import Optional
 from arpeggio import RegExMatch
 from arpeggio import ZeroOrMore
 
-""" Each rule is given in the form of Python function.
-Python function returns data structure that maps to PEG expressions.
-PEG expressions are defined in the arpeggio library.
-PEG expressions are used to define parsing rules.
-PEG stands for Parsing Expression Grammar.
-PEG grammar is a set of PEG rules. PEG rules consists of parsing expressions and can reference (call) each other.
 
-
-EOF
-end of string/file is recognized by the EOF special rule. 
-
-OneOrMore
-will try to match parser expression specified one or more times.
-
-Optional
-will try to match parser expression specified and will not fail in case match is not successful.
-
-RegExMatch
-checks for a match only at the beginning of the string. 
-So, if a match is found in the first line, it returns the match object. 
-But if a match is found in some other line, the Python RegEx Match function returns null.
-
-ZeroOrMore
-will try to match parser expression specified zero or more times. It will never fail.
-
-
-to use Python's raw string notation for regular expression patterns; backslashes are
-not handled in any special way in a string literal prefixed with 'r'.
-So r"\n" is a two-character string containing '\' and 'n', while "\n" is
-a one-character string containing a newline. """
 
 def comment():
     return RegExMatch(r"%.*")
