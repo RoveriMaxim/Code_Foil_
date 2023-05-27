@@ -6,6 +6,9 @@ insieme =prepare_data()
 bkg_data = il_back(insieme)
 es = gli_es()
 
+print("INSIEME::::::::::::::::::", len(insieme), ":::::::::::::::::::::::::")
+
+
 # verifico se il file Python è stato eseguito direttamente dall'interprete Python oppure
 # se è stato importato in un altro modulo Python.
 # gli underscore sono usati per evitare conflitti con altri nomi.
